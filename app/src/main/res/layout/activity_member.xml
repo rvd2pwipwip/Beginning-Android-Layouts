@@ -8,11 +8,12 @@
     android:orientation="vertical"
     tools:context="com.raywenderlich.android.octomembers.ui.member.MemberActivity">
 
-  <RelativeLayout
+  <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="@dimen/detail_avatar_container_size"
       android:background="@color/colorAccent"
-      android:gravity="center">
+      android:gravity="center_vertical"
+      android:padding="@dimen/padding_standard">
 
     <ImageView
         android:id="@+id/memberAvatar"
@@ -20,7 +21,18 @@
         android:layout_height="@dimen/detail_avatar_size"
         android:contentDescription="@string/contentDescription_teamMemberAvatar"
         tools:srcCompat="@tools:sample/avatars[14]" />
-  </RelativeLayout>
+
+    <TextView
+        android:id="@+id/memberName"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/padding_half"
+        android:textAlignment="center"
+        android:maxLines="3"
+        android:textSize="@dimen/name_text_size"
+        tools:text="John Doe"/>
+  </LinearLayout>
 
   <LinearLayout
       android:layout_width="match_parent"
@@ -29,20 +41,6 @@
       android:gravity="center"
       android:background="@color/colorPrimary"
       android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-      <TextView
-          style="@style/member_label"
-          android:text="@string/label_name"/>
-
-      <TextView
-          android:id="@+id/memberName"
-          style="@style/member_info" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

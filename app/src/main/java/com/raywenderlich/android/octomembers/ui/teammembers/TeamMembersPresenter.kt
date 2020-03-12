@@ -39,25 +39,60 @@ import retrofit2.Response
 
 class TeamMembersPresenter(val repository: Repository, val view: TeamMembersContract.View) : TeamMembersContract.Presenter {
 
-  override fun retrieveAllMembers(teamName: String) {
-    repository.retrieveTeamMembers(teamName, object : Callback<List<Member>> {
-      override fun onResponse(call: Call<List<Member>>?, response: Response<List<Member>>?) {
-        val members = response?.body()
-        if (members != null) {
-          view.showMembers(members)
+    override fun retrieveAllMembers(teamName: String) {
+        showViewLoadingState()
+        repository.retrieveTeamMembers(teamName, object : Callback<List<Member>> {
+            override fun onResponse(call: Call<List<Member>>?, response: Response<List<Member>>?) {
+                val members = response?.body()
+                if (members != null) {
+                    showMembersAndEnableInput(members)
+                } else {
+                    clearViewMembersAndShowError()
+                    enableInput()
+                }
+            }
+
+            override fun onFailure(call: Call<List<Member>>?, t: Throwable?) {
+                clearViewMembersAndShowError()
+                enableInput()
+            }
+        })
+    }
+
+    private fun clearViewMembersAndShowError() {
+        view.clearMembers()
+        view.showErrorRetrievingMembers()
+        view.hideLoading()
+    }
+
+    private fun showViewLoadingState() {
+        view.showLoading()
+        view.disableInput()
+        view.hideMembers()
+        view.hideEmptyState()
+    }
+
+    private  fun showMembersInView(members: List<Member>) {
+        view.showMembers(members)
+        view.hideLoading()
+    }
+
+    private fun enableInput() {
+        view.enableInput()
+    }
+
+    private fun showEmptyState() {
+        view.showEmptyState()
+        view.hideMembers()
+        view.hideLoading()
+    }
+
+    private fun showMembersAndEnableInput(members: List<Member>) {
+        if (members.isNotEmpty()) {
+            showMembersInView(members)
         } else {
-          clearViewMembersAndShowError()
+            showEmptyState()
         }
-      }
-
-      override fun onFailure(call: Call<List<Member>>?, t: Throwable?) {
-        clearViewMembersAndShowError()
-      }
-    })
-  }
-
-  private fun clearViewMembersAndShowError() {
-    view.clearMembers()
-    view.showErrorRetrievingMembers()
-  }
+        enableInput()
+    }
 }

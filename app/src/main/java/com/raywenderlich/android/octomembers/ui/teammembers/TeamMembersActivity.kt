@@ -33,6 +33,7 @@ package com.raywenderlich.android.octomembers.ui.teammembers
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
@@ -77,6 +78,7 @@ class TeamMembersActivity : AppCompatActivity(), TeamMembersContract.View {
     showMembers.setOnClickListener {
       val teamNameValue = teamName.text.toString()
       if (teamNameValue.isNotEmpty()) {
+        teamMembersList.hideKeyboard()
         presenter.retrieveAllMembers(teamNameValue)
       } else {
         showTeamNameEmptyError()
@@ -94,10 +96,26 @@ class TeamMembersActivity : AppCompatActivity(), TeamMembersContract.View {
     Toast.makeText(this, getString(R.string.error_team_name_empty), Toast.LENGTH_SHORT).show()
   }
 
+  override fun showLoading() {
+    progressBar.visibility = View.VISIBLE
+  }
+
+  override fun hideLoading() {
+    progressBar.visibility = View.GONE
+  }
+
+  override fun enableInput() {
+    showMembers.isEnabled = true
+  }
+
+  override fun disableInput() {
+    showMembers.isEnabled = false
+  }
+
   override fun showMembers(members: List<Member>) {
-    teamMembersList.hideKeyboard()
     adapter.members = members
     adapter.notifyDataSetChanged()
+    teamMembersList.visibility = View.VISIBLE
   }
 
   override fun showErrorRetrievingMembers() {
@@ -107,5 +125,18 @@ class TeamMembersActivity : AppCompatActivity(), TeamMembersContract.View {
   override fun clearMembers() {
     adapter.members = listOf()
     adapter.notifyDataSetChanged()
+  }
+
+  override fun hideMembers() {
+    teamMembersList.visibility = View.INVISIBLE
+  }
+
+  override fun showEmptyState() {
+    emptyStateTextView.visibility = View.VISIBLE
+    emptyStateTextView.text = String.format(getString(R.string.empty_state_text), teamName.text.toString())
+  }
+
+  override fun hideEmptyState() {
+    emptyStateTextView.visibility = View.INVISIBLE
   }
 }
