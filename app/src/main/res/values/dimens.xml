@@ -8,6 +8,7 @@
     <dimen name="type_text_size">14sp</dimen>
     <dimen name="detail_avatar_size">144dp</dimen>
     <dimen name="detail_avatar_container_size">200dp</dimen>
+    <dimen name="landscape_detail_avatar_container_size">300dp</dimen>
     <dimen name="detail_text_size">16sp</dimen>
     <dimen name="name_text_size">24sp</dimen>
 </resources>
