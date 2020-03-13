@@ -6,36 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".ui.teammembers.TeamMembersActivity">
 
-    <LinearLayout
+    <View
         android:id="@+id/search_bar"
-        android:layout_width="@dimen/landscape_detail_avatar_container_size"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/teamMemberHeader"
-        android:orientation="vertical"
-        android:padding="@dimen/padding_standard"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/verticalGuideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/teamName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:textAlignment="center"
-            android:hint="@string/search_hint"
-            android:imeOptions="actionDone"
-            android:inputType="textPersonName"
-            android:text="@string/default_team_name" />
+    <EditText
+        android:id="@+id/teamName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_standard"
+        android:layout_marginEnd="@dimen/padding_standard"
+        android:autofillHints=""
+        android:hint="@string/search_hint"
+        android:imeOptions="actionDone"
+        android:inputType="textPersonName"
+        android:text="@string/default_team_name"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@id/showMembers"
+        app:layout_constraintEnd_toEndOf="@id/search_bar"
+        app:layout_constraintStart_toStartOf="@id/search_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
-        <Button
-            android:id="@+id/showMembers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/team_button" />
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/showMembers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/team_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/teamName"
+        app:layout_constraintStart_toStartOf="@id/teamName"
+        app:layout_constraintTop_toBottomOf="@id/teamName" />
 
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -43,7 +50,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/search_bar"
+        app:layout_constraintStart_toEndOf="@+id/search_bar"
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.RecyclerView
@@ -74,6 +81,13 @@
             tools:visibility="visible" />
 
     </FrameLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/verticalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
 
 
 </android.support.constraint.ConstraintLayout>

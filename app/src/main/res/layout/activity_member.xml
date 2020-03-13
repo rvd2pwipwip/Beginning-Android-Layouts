@@ -8,9 +8,10 @@
 
     <View
         android:id="@+id/headerView"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/detail_avatar_container_size"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@id/horizontalGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -146,6 +147,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/label_login"
         tools:text="type" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizontalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
 
 
 </android.support.constraint.ConstraintLayout>
